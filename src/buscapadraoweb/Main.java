@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    // busca char em vetor e retorna indice
+    // Busca char no vetor, retorna indice, -1 se nao encontrado
     public static int get_char_ref (char[] vet, char ref ){
         for (int i=0; i<vet.length; i++ ){
             if (vet[i] == ref){
@@ -24,7 +24,7 @@ public class Main {
         return -1;
     }
 
-    // busca string em vetor e retorna indice
+    // Busca String no vetor, retorna indice, -1 se nao encontrado
     public static int get_string_ref (String[] vet, String ref ){
         for (int i=0; i<vet.length; i++ ){
             if (vet[i].equals(ref)){
@@ -37,6 +37,12 @@ public class Main {
     
 
     //retorna o próximo estado, dado o estado atual e o símbolo lido
+    //retorna o proximo estado, -1 se nao houver o simbolo no alfabeto
+    //Parametros
+    //Alfabeto de simbolos (chars) permitidos pela linguagem
+    //Matriz de transicao de estados (a confirmar)
+    //Estado atual
+    //Simbolo lido
     public static int proximo_estado(char[] alfabeto, int[][] matriz,int estado_atual,char simbolo){
         int simbol_indice = get_char_ref(alfabeto, simbolo);
         if (simbol_indice != -1){
@@ -58,7 +64,8 @@ public class Main {
         String codigoHTML = listaCodigos.get(0);
 
         //mapa do alfabeto
-        char[] alfabeto = new char[10];
+        //Para ipv4, deve ser os numeros [0 - 9] e .
+        char[] alfabeto = new char[11];
         alfabeto[0] = '0';
         alfabeto[1] = '1';
         alfabeto[2] = '2';
@@ -69,9 +76,13 @@ public class Main {
         alfabeto[7] = '7';
         alfabeto[8] = '8';
         alfabeto[9] = '9';
+        alfabeto[10] = '.';
 
-
+        // A partir dessa parte recomendo usar o JFlap primeiro para ter uma visao melhor dos estados e as transicoes  
+      
         //mapa de estados
+        //TODO
+        //Definir os estados possiveis
         String[] estados = new String[3];
         estados[0] = "q0";
         estados[1] = "q1";
@@ -84,7 +95,12 @@ public class Main {
         estados_finais[0] = "q2";
 
         //tabela de transição de AFD para reconhecimento números de dois dígitos
+        //Declaracao
+            // new int[quantidade estados][quantidade simbolos]
+        //Logica 
+            // Matriz[Estado atual][Simbolo lido] = [Proximo estado]
         int[][] matriz = new int[3][10];
+        
         //transições de q0
         matriz[get_string_ref(estados, "q0")][get_char_ref(alfabeto, '0')] = get_string_ref(estados, "q1");
         matriz[get_string_ref(estados, "q0")][get_char_ref(alfabeto, '1')] = get_string_ref(estados, "q1");
